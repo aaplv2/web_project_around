@@ -1,0 +1,91 @@
+.content__cards {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 282px);
+  grid-template-rows: auto;
+  gap: 18px;
+  max-width: 880px;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+.card {
+  max-width: 282px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.card__image {
+  max-width: 282px;
+  height: 282px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card__button-trash {
+  display: flex;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.card__button-trash:hover {
+  opacity: 60%;
+}
+
+.card__bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  color: black;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.card__title {
+  font-weight: 900;
+  font-size: 22px;
+  line-height: 28px;
+  margin-left: 21px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.card__button-like {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.card__button-like:hover {
+  opacity: 60%;
+}
+
+.card__button-like:active {
+  background-image: url(../images/card-like-active.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 100%;
+  width: 21px;
+  height: 19px;
+  display: flex;
+  align-self: center;
+}
+
+@media screen and (max-width: 400px) {
+  .content__cards {
+    margin-left: 20px;
+    grid-template-columns: repeat(1, 300px);
+  }
+}
