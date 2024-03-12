@@ -5,10 +5,10 @@
   line-height: 22px;
   max-width: 880px;
   width: 100%;
-  margin: 120px;
+  padding-top: 100px;
 }
 
-@media screen and (max-width: 877px) {
+@media screen and (max-width: 974px) {
   .footer {
     margin-left: 10px;
     margin-right: 10px;

@@ -3,13 +3,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* display: grid;
-  grid-template-columns: repeat(3, 282px);
-  grid-template-rows: auto; */
   gap: 17px;
   max-width: 880px;
-  /* margin-left: 200px;
-  margin-right: 200px; */
 }
 
 .card {
@@ -84,13 +79,4 @@
   height: 19px;
   display: flex;
   align-self: center;
-}
-
-@media screen and (max-width: 400px) {
-  /* .content__cards {
-    margin: 0;
-    margin-top: 20px;
-    margin-left: 20px;
-    grid-template-columns: repeat(1, 300px);
-  } */
 }

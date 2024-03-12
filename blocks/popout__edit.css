@@ -51,6 +51,9 @@
   border-color: #c4c4c4;
   min-width: 358px;
   height: 27px;
+  /* text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; */
 }
 
 .popout__form-name::placeholder {
@@ -66,6 +69,9 @@
   border-color: #c4c4c4;
   margin-top: 30px;
   height: 27px;
+  /* text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; */
 }
 
 .popout__form-about::placeholder {
@@ -99,6 +105,7 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   pointer-events: none;
+  height: 100vh;
 }
 
 #overlay.active {
