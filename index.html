@@ -2,7 +2,10 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1"
+    />
     <meta name="description" content="Around The U.S." />
     <meta name="keywods" content="viaje, estados unidos, u.s., personas" />
     <meta name="author" content="Andrés Pardo" />
@@ -33,6 +36,32 @@
                 <img src="./images/Edit-Button.svg" alt="Botón editar" />
               </button>
             </div>
+            <div class="popout__edit active">
+              <h4 class="popout__title">Editar Perfil</h4>
+              <button class="popout__button-close">
+                <img src="./images/close-icon.svg" alt="Boton de cerrar" />
+              </button>
+              <form class="popout__form" action="/">
+                <input
+                  class="popout__form-name"
+                  id="username"
+                  name="username"
+                  placeholder="Nombre"
+                  type="text"
+                />
+                <input
+                  class="popout__form-about"
+                  id="about"
+                  name="about"
+                  placeholder="Acerca de mi"
+                  type="text"
+                />
+                <button class="popout__form-button" type="submit">
+                  Guardar
+                </button>
+              </form>
+            </div>
+            <div id="overlay"></div>
             <h3 class="profile__info-subtitle">Explorador</h3>
           </div>
           <button class="profile__button-add"></button>
@@ -152,5 +181,6 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
     </div>
+    <script src="./index.js"></script>
   </body>
 </html>

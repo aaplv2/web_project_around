@@ -52,6 +52,105 @@
   margin: 0;
 }
 
+.popout__edit {
+  color: black;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 10px;
+  border: 0 solid black;
+  padding: 50px;
+  z-index: 2;
+  background-color: white;
+}
+
+.popout__edit.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.popout__title {
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 0;
+  margin-bottom: 54px;
+}
+
+.popout__button-close {
+  cursor: pointer;
+  background: 0;
+  border: 0;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -33px;
+  right: -33px;
+}
+
+.popout__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.popout__form-name {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-color: #c4c4c4;
+  min-width: 358px;
+  height: 27px;
+}
+
+.popout__form-name::placeholder {
+  font-size: 14px;
+  line-height: 30px;
+  color: #c4c4c4;
+}
+
+.popout__form-about {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-color: #c4c4c4;
+  margin-top: 30px;
+  height: 27px;
+}
+
+.popout__form-about::placeholder {
+  font-size: 14px;
+  line-height: 30px;
+  color: #c4c4c4;
+}
+
+.popout__form-button {
+  margin-top: 48px;
+  border: 0;
+  background-color: black;
+  color: white;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+#overlay.active {
+  pointer-events: all;
+  opacity: 1;
+}
+
 .profile__button-add {
   display: flex;
   align-self: center;
@@ -96,8 +195,8 @@
 
   .profile__info-name {
     font-weight: 500;
-    font-size: 24px;
-    line-height: 44px;
+    font-size: 22px;
+    line-height: 56px;
     margin: 0;
     margin-top: 10px;
     max-width: 210px;
@@ -112,11 +211,25 @@
     padding-top: 15px;
   }
 
+  .popout__edit {
+    padding: 22px;
+  }
+
+  .popout__button-close {
+    top: -41px;
+    right: 0;
+  }
+
+  .popout__form-name {
+    min-width: 232px;
+  }
+
   .profile__info-subtitle {
     font-weight: 400;
-    font-size: 17px;
-    line-height: 28px;
+    font-size: 14px;
+    line-height: 17px;
     margin: 0;
+    margin-bottom: 10px;
   }
 
   .profile__button-add {
