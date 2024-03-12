@@ -1,9 +1,10 @@
 .header {
   display: flex;
   flex-direction: column;
-  width: 880px;
-  margin-left: 200px;
-  margin-right: 200px;
+  max-width: 880px;
+  width: 100%;
+  /* margin-left: 200px;
+  margin-right: 200px; */
 }
 
 .header__logo {
@@ -17,7 +18,15 @@
   background: #545454;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 877px) {
+  .header {
+    margin-left: 10px;
+    margin-right: 10px;
+    max-width: 581px;
+  }
+}
+
+@media screen and (max-width: 577px) {
   .header {
     margin-left: 10px;
     margin-right: 10px;
