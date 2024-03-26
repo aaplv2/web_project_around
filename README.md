@@ -2,9 +2,17 @@
 
 # Perfil de usuario para personas haciendo viajes alrededor del mundo y Estados Unidos.
 
+# Permite editar nombre y caracteristicas del perfil de usuario.
+
+# Permite añadir cartas personalizadas con el título y fotografía que desee el usuario.
+
+# Las cartas pueden inspeccionarse a un zoom mas alto.
+
+# Las cartas pueden recibir reacciones me gusta y ser eliminadas por los botones en ellas mismas.
+
 # HTML, CSS y JavaScript
 
-# Figma
+# Diseño en base a Figma
 
 # Git Bash para pull original y push en rama develop, antes de enviar a revisión en rama main.
 
@@ -16,8 +24,8 @@
 
 # Metodología BEM y semántica correspondiente para los elementos
 
-# Diseño en base a herramientas flexbox para orden.
+# Diseño en base a herramientas flexbox y grid para orden.
 
-# Javascrip con declaraciones variables, constanstes y funciones. Permitiendo al usuario interactuar con el boton edit.
+# Javascrip con declaraciones variables, constanstes y funciones. Permitiendo al usuario interactuar con el boton edit, añadir nueva carta, me gusta, eliminar y la misma fotografía.
 
 # GitHub Pages: https://aaplv2.github.io/web_project_around/

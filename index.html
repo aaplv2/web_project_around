@@ -37,147 +37,79 @@
           </div>
           <button class="profile__button-add"></button>
         </div>
-        <div class="content__cards cards">
-          <div class="card">
-            <div class="card__top">
-              <button class="card__button-trash">
-                <img src="./images/card-trash.svg" alt="Botón eliminar" />
-              </button>
-              <img
-                class="card__image"
-                src="./images/card_yosemite.jpg"
-                alt="Tarjeta Valle Yosemite"
-              />
-            </div>
-            <div class="card__bottom">
-              <h2 class="card__title">Valle de Yosemite</h2>
-              <button class="card__button-like">
-                <img src="./images/card-like.svg" alt="Botón like" />
-              </button>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card__top">
-              <img
-                class="card__image"
-                src="./images/card_louise.png"
-                alt="Tarjeta Lago Louise"
-              />
-              <button class="card__button-trash">
-                <img src="./images/card-trash.svg" alt="Botón eliminar" />
-              </button>
-            </div>
-            <div class="card__bottom">
-              <h2 class="card__title">Lago Louise</h2>
-              <button class="card__button-like">
-                <img src="./images/card-like.svg" alt="Botón like" />
-              </button>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card__top">
-              <img
-                class="card__image"
-                src="./images/card_calvas.png"
-                alt="Tarjeta Montañas card_calvas"
-              />
-              <button class="card__button-trash">
-                <img src="./images/card-trash.svg" alt="Botón eliminar" />
-              </button>
-            </div>
-            <div class="card__bottom">
-              <h2 class="card__title">Montañas Calvas</h2>
-              <button class="card__button-like">
-                <img src="./images/card-like.svg" alt="Botón like" />
-              </button>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card__top">
-              <img
-                class="card__image"
-                src="./images/card_lagotodoslossantos.jpg"
-                alt="Tarjeta Lago Todos los Santos"
-              />
-              <button class="card__button-trash">
-                <img src="./images/card-trash.svg" alt="Botón eliminar" />
-              </button>
-            </div>
-            <div class="card__bottom">
-              <h2 class="card__title">Lago Todos Los Santos</h2>
-              <button class="card__button-like">
-                <img src="./images/card-like.svg" alt="Botón like" />
-              </button>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card__top">
-              <img
-                class="card__image"
-                src="./images/card_lagunadelinca.jpg"
-                alt="Tarjeta Laguna del Inca"
-              />
-              <button class="card__button-trash">
-                <img src="./images/card-trash.svg" alt="Botón eliminar" />
-              </button>
-            </div>
-            <div class="card__bottom">
-              <h2 class="card__title">Laguna del Inca</h2>
-              <button class="card__button-like">
-                <img src="./images/card-like.svg" alt="Botón like" />
-              </button>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card__top">
-              <img
-                class="card__image"
-                src="./images/card_valleaconcagua.jpg"
-                alt="Tarjeta Valle Aconcagua"
-              />
-              <button class="card__button-trash">
-                <img src="./images/card-trash.svg" alt="Botón eliminar" />
-              </button>
-            </div>
-            <div class="card__bottom">
-              <h2 class="card__title">Valle Aconcagua</h2>
-              <button class="card__button-like">
-                <img src="./images/card-like.svg" alt="Botón like" />
-              </button>
-            </div>
-          </div>
-        </div>
+        <div class="content__cards cards"></div>
       </main>
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
-      <div class="popout">
-        <h4 class="popout__title">Editar Perfil</h4>
-        <button class="popout__button-close" type="submit">
+      <template id="card">
+        <div class="card">
+          <div class="card__top">
+            <button class="card__button-trash" id="button-trash">
+              <img src="./images/card-trash.svg" alt="Botón eliminar" />
+            </button>
+            <img class="card__image" src="" alt="" />
+          </div>
+          <div class="card__bottom">
+            <h2 class="card__title"></h2>
+            <button class="card__button-like">
+              <img src="./images/card-like.svg" alt="Botón like" />
+            </button>
+          </div>
+        </div>
+      </template>
+      <div class="popout-edit">
+        <h4 class="popout-edit__title">Editar perfil</h4>
+        <button class="popout-edit__button-close" type="submit">
           <img src="./images/close-icon.svg" alt="Boton de cerrar" />
         </button>
-        <form class="popout__form">
+        <form class="popout-edit__form">
           <input
-            class="popout__form-name"
-            id="username"
-            name="username"
+            class="popout-edit__form-name"
             placeholder="Nombre"
             type="text"
             required
           />
           <input
-            class="popout__form-about"
-            id="about"
-            name="about"
-            placeholder="Acerca de mi"
+            class="popout-edit__form-text"
+            placeholder="Acerca de ti"
             type="text"
             required
           />
-          <button class="popout__button-save" type="submit">Guardar</button>
+          <button class="popout-edit__button-save" type="submit">
+            Guardar
+          </button>
         </form>
       </div>
+      <div class="popout-add">
+        <h4 class="popout-add__title">Nuevo lugar</h4>
+        <button class="popout-add__button-close" type="submit">
+          <img src="./images/close-icon.svg" alt="Boton de cerrar" />
+        </button>
+        <form class="popout-add__form">
+          <input
+            class="popout-add__form-title"
+            placeholder="Título"
+            type="text"
+            required
+          />
+          <input
+            class="popout-add__form-url"
+            placeholder="Enlace a la imagen"
+            type="text"
+            required
+          />
+          <button class="popout-add__button-save" type="submit">Guardar</button>
+        </form>
+      </div>
+      <div class="popout-image">
+        <button class="popout-image__button-close" type="submit">
+          <img src="./images/close-icon.svg" alt="Boton de cerrar" />
+        </button>
+        <img class="popout-image__image" src="" alt="" />
+        <p class="popout-image__title"></p>
+      </div>
     </div>
-
     <div id="overlay"></div>
     <script src="./scripts/index.js"></script>
   </body>
