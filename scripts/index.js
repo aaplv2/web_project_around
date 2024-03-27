@@ -79,7 +79,7 @@ function zoomImage(cardElement) {
   document.querySelector(".popout-image__image").src =
     cardElement.querySelector(".card__image").src;
   document.querySelector(".popout-image__image").alt =
-    cardElement.querySelector(".card__title");
+    cardElement.querySelector(".card__title").textContent;
   document.querySelector(".popout-image__title").textContent =
     cardElement.querySelector(".card__title").textContent;
 }
