@@ -82,6 +82,8 @@ function zoomImage(cardElement) {
     cardElement.querySelector(".card__title").textContent;
   document.querySelector(".popout-image__title").textContent =
     cardElement.querySelector(".card__title").textContent;
+
+  document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
 }
 
 function trashCard(cardElement) {
