@@ -63,20 +63,28 @@
         <button class="popout-edit__button-close" type="submit">
           <img src="./images/close-icon.svg" alt="Boton de cerrar" />
         </button>
-        <form class="popout-edit__form">
+        <form class="popout-edit__form form">
           <input
-            class="popout-edit__form-name"
+            class="popout-edit__form-name form__input form__input-name"
             placeholder="Nombre"
             type="text"
             required
+            minlength="2"
+            maxlength="40"
           />
+          <span
+            class="span-error form__input-name-error form__input-error"
+          ></span>
           <input
-            class="popout-edit__form-text"
+            class="popout-edit__form-text form__input form__input-text"
             placeholder="Acerca de ti"
             type="text"
             required
+            minlength="2"
+            maxlength="200"
           />
-          <button class="popout-edit__button-save" type="submit">
+          <span class="form__input-text-error form__input-error"></span>
+          <button class="popout-edit__button-save form__submit" type="submit">
             Guardar
           </button>
         </form>
@@ -86,20 +94,26 @@
         <button class="popout-add__button-close" type="submit">
           <img src="./images/close-icon.svg" alt="Boton de cerrar" />
         </button>
-        <form class="popout-add__form">
+        <form class="popout-add__form form" novalidate>
           <input
-            class="popout-add__form-title"
+            class="popout-add__form-title form__input form__input-title"
             placeholder="Título"
             type="text"
             required
+            minlength="2"
+            maxlength="30"
           />
+          <span class="form__input-title-error form__input-error"></span>
           <input
-            class="popout-add__form-url"
+            class="popout-add__form-url form__input form__input-url"
             placeholder="Enlace a la imagen"
-            type="text"
+            type="url"
             required
           />
-          <button class="popout-add__button-save" type="submit">Guardar</button>
+          <span class="form__input-url-error form__input-error"></span>
+          <button class="popout-add__button-save form__submit" type="submit">
+            Guardar
+          </button>
         </form>
       </div>
       <div class="popout-image">
@@ -112,5 +126,6 @@
     </div>
     <div id="overlay"></div>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>

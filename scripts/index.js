@@ -101,11 +101,13 @@ function activeLike(cardElement) {
 function renderEdit() {
   editFormPopout.classList.add("active");
   overlayPopout.classList.add("active");
+  document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
 }
 
 function renderAdd() {
   addFormPopout.classList.add("active");
   overlayPopout.classList.add("active");
+  document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
 }
 
 function handleEditFormSubmit(evt) {
@@ -119,7 +121,7 @@ function handleEditFormSubmit(evt) {
   profileName.textContent = nameInput.value;
   profileSubtitle.textContent = aboutInput.value;
 
-  editSaveButton.addEventListener("click", closePopout);
+  closePopout();
 }
 
 function handleAddFormSubmit(evt) {
@@ -133,7 +135,7 @@ function handleAddFormSubmit(evt) {
   const cardElement = createCard(card);
   document.querySelector(".cards").prepend(cardElement);
 
-  addSaveButton.addEventListener("click", closePopout);
+  closePopout();
 }
 
 function closePopout() {
@@ -143,14 +145,21 @@ function closePopout() {
   overlayPopout.classList.remove("active");
 }
 
+function escapeKeyClose(evt) {
+  if (evt.key === "Escape") {
+    closePopout();
+  }
+  document.removeEventListener("keydown", escapeKeyClose);
+}
+
 editButton.addEventListener("click", renderEdit);
 editFormElement.addEventListener("submit", (evt) => handleEditFormSubmit(evt));
 editCloseButton.addEventListener("click", closePopout);
-editSaveButton.addEventListener("click", closePopout);
 
 addButton.addEventListener("click", renderAdd);
 addFormElement.addEventListener("submit", (evt) => handleAddFormSubmit(evt));
 addCloseButton.addEventListener("click", closePopout);
-addSaveButton.addEventListener("click", closePopout);
 
 imageCloseButton.addEventListener("click", closePopout);
+
+overlayPopout.addEventListener("click", closePopout);
