@@ -58,7 +58,7 @@ function createCard(card) {
 
   cardElement
     .querySelector(".card__button-trash")
-    .addEventListener("click", () => trashCard(cardElement));
+    .addEventListener("click", () => deleteCard(cardElement));
 
   cardElement
     .querySelector(".card__image")
@@ -86,7 +86,7 @@ function zoomImage(cardElement) {
   document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
 }
 
-function trashCard(cardElement) {
+function deleteCard(cardElement) {
   const buttonTrash = cardElement.querySelector("#button-trash");
   cardElement.remove(buttonTrash);
 }
@@ -102,12 +102,16 @@ function activeLike(cardElement) {
 
 function renderEdit() {
   editFormPopout.classList.add("active");
+  editSaveButton.classList.add("form__submit_inactive");
+  editSaveButton.setAttribute("disabled", "true");
   overlayPopout.classList.add("active");
   document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
 }
 
 function renderAdd() {
   addFormPopout.classList.add("active");
+  addSaveButton.classList.add("form__submit_inactive");
+  addSaveButton.setAttribute("disabled", "true");
   overlayPopout.classList.add("active");
   document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
 }
@@ -124,6 +128,9 @@ function handleEditFormSubmit(evt) {
   profileSubtitle.textContent = aboutInput.value;
 
   closePopout();
+
+  nameInput.value = "";
+  aboutInput.value = "";
 }
 
 function handleAddFormSubmit(evt) {
@@ -138,6 +145,9 @@ function handleAddFormSubmit(evt) {
   document.querySelector(".cards").prepend(cardElement);
 
   closePopout();
+
+  titleInput.value = "";
+  urlInput.value = "";
 }
 
 function closePopout() {
