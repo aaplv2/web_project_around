@@ -16,6 +16,8 @@
 - Diseño en base a herramientas flexbox y grid para orden.
 - Javascrip con declaraciones variables, constanstes y funciones. Permitiendo al usuario interactuar con el boton edit, añadir nueva carta, me gusta, eliminar y la misma fotografía.
 - JavaScript para validación de formularios, activar y desactivar botón de guardar, salir del formulario mediante tecla Escape y haciendo click fuera del formulario.
+- Se utilizan módulos para las operaciones que crean cartas y para las que validan los formularios de Edición de Perfil y Añadir una Carta.
+- Los módulos contienen clases nombradas en base a sus respectivas operaciones. Todo con el fin de optimizar el código para que cumplir con POO.
 - GitHub Pages: https://aaplv2.github.io/web_project_around/
 
 ## Características
@@ -25,6 +27,7 @@
 - Edición perfil
 - Crear/Eliminar cartas
 - Seleccionar carta(s) favorita(s)
+- Programación Orientadad a Objetos (POO)
 
 ## Capturas
 

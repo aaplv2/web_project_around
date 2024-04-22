@@ -1,23 +1,20 @@
+import Card from "./Card.js";
+import { renderEdit, renderAdd, closePopout, escapeKeyClose } from "./utils.js";
+
 const content = document.querySelector(".body");
 
 const addButton = content.querySelector(".profile__button-add");
-const addFormPopout = content.querySelector(".popout-add");
 const addCloseButton = content.querySelector(".popout-add__button-close");
 const addFormElement = content.querySelector(".popout-add__form");
-const addSaveButton = content.querySelector(".popout-add__button-save");
 
 const editButton = content.querySelector(".profile__button-edit");
-const editFormPopout = content.querySelector(".popout-edit");
 const editCloseButton = content.querySelector(".popout-edit__button-close");
 const editFormElement = content.querySelector(".popout-edit__form");
-const editSaveButton = content.querySelector(".popout-edit__button-save");
 
-const imagePopout = content.querySelector(".popout-image");
 const imageCloseButton = content.querySelector(".popout-image__button-close");
 
 const overlayPopout = content.querySelector("#overlay");
 
-const cardTemplate = document.querySelector("#card").content;
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -45,72 +42,11 @@ const initialCards = [
   },
 ];
 
-function createCard(card) {
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-
-  cardElement.querySelector(".card__image").src = card.link;
-  cardElement.querySelector(".card__image").alt = card.name;
-  cardElement.querySelector(".card__title").textContent = card.name;
-
-  cardElement
-    .querySelector(".card__button-like")
-    .addEventListener("click", () => activeLike(cardElement));
-
-  cardElement
-    .querySelector(".card__button-trash")
-    .addEventListener("click", () => trashCard(cardElement));
-
-  cardElement
-    .querySelector(".card__image")
-    .addEventListener("click", () => zoomImage(cardElement));
-
-  return cardElement;
-}
-
 initialCards.forEach((card) => {
-  const cardElement = createCard(card);
+  const newCard = new Card(card.name, card.link, "#card");
+  const cardElement = newCard.createCard();
   document.querySelector(".cards").append(cardElement);
 });
-
-function zoomImage(cardElement) {
-  imagePopout.classList.add("active");
-  overlayPopout.classList.add("active");
-
-  document.querySelector(".popout-image__image").src =
-    cardElement.querySelector(".card__image").src;
-  document.querySelector(".popout-image__image").alt =
-    cardElement.querySelector(".card__title").textContent;
-  document.querySelector(".popout-image__title").textContent =
-    cardElement.querySelector(".card__title").textContent;
-
-  document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
-}
-
-function trashCard(cardElement) {
-  const buttonTrash = cardElement.querySelector("#button-trash");
-  cardElement.remove(buttonTrash);
-}
-
-function activeLike(cardElement) {
-  const buttonLike = cardElement.querySelector(".card__button-like");
-  if (buttonLike.classList.contains("active")) {
-    buttonLike.classList.remove("active");
-  } else {
-    buttonLike.classList.add("active");
-  }
-}
-
-function renderEdit() {
-  editFormPopout.classList.add("active");
-  overlayPopout.classList.add("active");
-  document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
-}
-
-function renderAdd() {
-  addFormPopout.classList.add("active");
-  overlayPopout.classList.add("active");
-  document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
-}
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
@@ -123,7 +59,12 @@ function handleEditFormSubmit(evt) {
   profileName.textContent = nameInput.value;
   profileSubtitle.textContent = aboutInput.value;
 
+  document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
+
   closePopout();
+
+  nameInput.value = "";
+  aboutInput.value = "";
 }
 
 function handleAddFormSubmit(evt) {
@@ -134,24 +75,16 @@ function handleAddFormSubmit(evt) {
   card.name = titleInput.value;
   card.link = urlInput.value;
 
-  const cardElement = createCard(card);
+  const newCard = new Card(card.name, card.link, "#card");
+  const cardElement = newCard.createCard();
   document.querySelector(".cards").prepend(cardElement);
 
+  document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
+
   closePopout();
-}
 
-function closePopout() {
-  editFormPopout.classList.remove("active");
-  addFormPopout.classList.remove("active");
-  imagePopout.classList.remove("active");
-  overlayPopout.classList.remove("active");
-}
-
-function escapeKeyClose(evt) {
-  if (evt.key === "Escape") {
-    closePopout();
-  }
-  document.removeEventListener("keydown", escapeKeyClose);
+  titleInput.value = "";
+  urlInput.value = "";
 }
 
 editButton.addEventListener("click", renderEdit);

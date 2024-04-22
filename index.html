@@ -65,25 +65,25 @@
         </button>
         <form class="popout-edit__form form">
           <input
-            class="popout-edit__form-name form__input form__input-name"
+            class="popout-edit__form-name form__input"
             placeholder="Nombre"
             type="text"
             required
             minlength="2"
             maxlength="40"
+            data-error="span-name"
           />
-          <span
-            class="span-error form__input-name-error form__input-error"
-          ></span>
+          <span class="span-name-error form__input-error"></span>
           <input
-            class="popout-edit__form-text form__input form__input-text"
+            class="popout-edit__form-text form__input"
             placeholder="Acerca de ti"
             type="text"
             required
             minlength="2"
             maxlength="200"
+            data-error="span-text"
           />
-          <span class="form__input-text-error form__input-error"></span>
+          <span class="span-text-error form__input-error"></span>
           <button class="popout-edit__button-save form__submit" type="submit">
             Guardar
           </button>
@@ -96,21 +96,23 @@
         </button>
         <form class="popout-add__form form" novalidate>
           <input
-            class="popout-add__form-title form__input form__input-title"
+            class="popout-add__form-title form__input"
             placeholder="Título"
             type="text"
             required
             minlength="2"
             maxlength="30"
+            data-error="span-title"
           />
-          <span class="form__input-title-error form__input-error"></span>
+          <span class="span-title-error form__input-error"></span>
           <input
-            class="popout-add__form-url form__input form__input-url"
+            class="popout-add__form-url form__input"
             placeholder="Enlace a la imagen"
             type="url"
             required
+            data-error="span-url"
           />
-          <span class="form__input-url-error form__input-error"></span>
+          <span class="span-url-error form__input-error"></span>
           <button class="popout-add__button-save form__submit" type="submit">
             Guardar
           </button>
@@ -125,7 +127,6 @@
       </div>
     </div>
     <div id="overlay"></div>
-    <script src="./scripts/index.js"></script>
-    <script src="./scripts/validate.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>
