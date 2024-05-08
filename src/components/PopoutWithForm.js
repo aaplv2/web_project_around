@@ -5,6 +5,7 @@ export default class PopoutWithForm extends Popout {
     super(popoutSelector);
     this._formSubmitHandler = formSubmitHandler;
     this._submitHandle = this.submitHandle.bind(this);
+    this._form = this._popoutElement.querySelector(".form");
   }
   _getInputValues() {
     this._inputList = Array.from(
@@ -25,9 +26,7 @@ export default class PopoutWithForm extends Popout {
   }
   close() {
     super.close();
-    this._inputList.forEach((inputElement) => {
-      inputElement.value = "";
-    });
+    this._form.reset();
     this._buttonList = document.querySelectorAll(".form__submit");
     this._buttonList.forEach((buttonElement) => {
       buttonElement.classList.add("form__submit_inactive");

@@ -24,7 +24,7 @@ export default class Popout {
     }
   }
   _handleTargetClose(evt) {
-    if (evt.target.classList.contains("button__close")) {
+    if (evt.target.classList.contains("close")) {
       this.close();
     }
   }
