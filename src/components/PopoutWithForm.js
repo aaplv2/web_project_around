@@ -2,33 +2,34 @@ import Popout from "./Popout";
 
 export default class PopoutWithForm extends Popout {
   constructor(formSubmitHandler, popoutSelector) {
-    this._formSubmitHandler = formSubmitHandler;
-    this._form = document.querySelector(".form");
     super(popoutSelector);
+    this._formSubmitHandler = formSubmitHandler;
+    this._submitHandle = this.submitHandle.bind(this);
   }
   _getInputValues() {
     this._inputList = Array.from(
-      popoutSelector.querySelectorAll(".form__input")
+      this._popoutElement.querySelectorAll(".form__input")
     );
+    this._inputValues = {};
     this._inputList.forEach((inputElement) => {
-      this._inputValues = inputElement.value;
+      this._inputValues[inputElement.name] = inputElement.value;
     });
     return this._inputValues;
   }
-  handleSubmitEdit(evt) {
+  submitHandle(evt) {
     evt.preventDefault();
-    this._formSubmitHandler(this._getInputValues(), "edit");
+    this._formSubmitHandler(this._getInputValues());
     this.close();
   }
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener("submit", this._formSubmitHandler);
+    this._popoutElement.addEventListener("submit", this._submitHandle);
   }
   open() {
     super.open();
   }
   close() {
     super.close();
-    popoutSelector.reset();
+    this._popoutElement.reset;
   }
 }

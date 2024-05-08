@@ -1,7 +1,7 @@
 export default class Card {
-  constructor(title, image, cardSelector) {
+  constructor(title, url, cardSelector) {
     this._title = title;
-    this._image = image;
+    this._url = url;
     this._cardSelector = cardSelector;
   }
 
@@ -18,7 +18,7 @@ export default class Card {
 
     this._cardElement.querySelector(".card__title").textContent = this._title;
     this._cardElement.querySelector(".card__image").alt = this._title;
-    this._cardElement.querySelector(".card__image").src = this._image;
+    this._cardElement.querySelector(".card__image").src = this._url;
 
     this._cardElement
       .querySelector(".card__button-like")

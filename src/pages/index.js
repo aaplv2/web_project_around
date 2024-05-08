@@ -6,12 +6,11 @@ import PopoutWithForm from "../components/PopoutWithForm.js";
 import PopoutWithImage from "../components/PopoutWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
-import {
-  // renderEdit,
-  // renderAdd,
-  closePopout,
-  // escapeKeyClose,
-} from "../components/utils.js";
+// import renderEdit,
+// renderAdd,
+// closePopout,
+// escapeKeyClose,
+// "../components/utils.js";
 
 const content = document.querySelector(".body");
 
@@ -27,32 +26,43 @@ const imageCloseButton = content.querySelector(".popout-image__button-close");
 
 const overlayPopout = content.querySelector("#overlay");
 
+const nameInput = editFormElement.querySelector(".popout-edit__form-name");
+const aboutInput = editFormElement.querySelector(".popout-edit__form-text");
+
+const titleInput = addFormElement.querySelector(".popout-add__form-title");
+const urlInput = addFormElement.querySelector(".popout-add__form-url");
+
 const initialCards = [
   {
-    name: "Valle de Yosemite",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg",
-  },
-  {
-    name: "Lago Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg",
-  },
-  {
-    name: "Montañas Calvas",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg",
+    name: "Lago di Braies",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
   },
   {
     name: "Parque Nacional de la Vanoise",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg",
   },
   {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
+    name: "Latemar",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg",
+  },
+  {
+    name: "Montañas Calvas",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg",
+  },
+  {
+    name: "Lago Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg",
+  },
+  {
+    name: "Valle de Yosemite",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg",
   },
 ];
+
+const userInfo = new UserInfo({
+  nameSelector: ".profile__info-name",
+  aboutSelector: ".profile__info-subtitle",
+});
 
 const renderSection = new Section(
   {
@@ -68,65 +78,80 @@ const renderSection = new Section(
 
 renderSection.render();
 
-function formTypeSelector(formType) {
+function formTypeSelector(inputValues, formType) {
   if (formType === "edit") {
-    UserInfo.setUserInfo({ name: nameInput.value, about: aboutInput.value });
+    userInfo.setUserInfo({ name: nameInput.value, about: aboutInput.value });
   } else if (formType === "add") {
-    const newCard = new Card(card.name, card.link, "#card").createCard();
-    renderSection.addItem(newCard);
+    const newCard = new Card(titleInput.value, urlInput.value, "#card");
+    const cardElement = newCard.createCard();
+    renderSection.addItem(cardElement);
   }
 }
 
-const editPopout = new PopoutWithForm(formTypeSelector("edit"), ".popout-edit");
+const editPopout = new PopoutWithForm(
+  (inputValues) => formTypeSelector(inputValues, "edit"),
+  ".popout-edit"
+);
 editPopout.setEventListeners();
 
-function handleEditFormSubmit(evt) {
-  evt.preventDefault();
-  const nameInput = editFormElement.querySelector(".popout-edit__form-name");
-  const aboutInput = editFormElement.querySelector(".popout-edit__form-text");
+const addPopout = new PopoutWithForm(
+  (inputValues) => formTypeSelector(inputValues, "add"),
+  ".popout-add"
+);
+addPopout.setEventListeners();
 
-  const profileName = document.querySelector(".profile__info-name");
-  const profileSubtitle = document.querySelector(".profile__info-subtitle");
+editButton.addEventListener("click", () => {
+  const userData = userInfo.getUserInfo();
+  editPopout.open();
+});
 
-  profileName.textContent = nameInput.value;
-  profileSubtitle.textContent = aboutInput.value;
+addButton.addEventListener("click", addPopout.open);
 
-  document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
+// function handleEditFormSubmit(evt) {
+//   evt.preventDefault();
+//   const nameInput = editFormElement.querySelector(".popout-edit__form-name");
+//   const aboutInput = editFormElement.querySelector(".popout-edit__form-text");
 
-  closePopout();
+//   const profileName = document.querySelector(".profile__info-name");
+//   const profileSubtitle = document.querySelector(".profile__info-subtitle");
 
-  nameInput.value = "";
-  aboutInput.value = "";
-}
+//   profileName.textContent = nameInput.value;
+//   profileSubtitle.textContent = aboutInput.value;
 
-function handleAddFormSubmit(evt) {
-  evt.preventDefault();
-  const titleInput = addFormElement.querySelector(".popout-add__form-title");
-  const urlInput = addFormElement.querySelector(".popout-add__form-url");
+//   document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
 
-  card.name = titleInput.value;
-  card.link = urlInput.value;
+//   closePopout();
 
-  const newCard = new Card(card.name, card.link, "#card");
-  const cardElement = newCard.createCard();
-  document.querySelector(".cards").prepend(cardElement);
+//   nameInput.value = "";
+//   aboutInput.value = "";
+// }
 
-  document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
+// function handleAddFormSubmit(evt) {
+//   evt.preventDefault();
+//   const titleInput = addFormElement.querySelector(".popout-add__form-title");
+//   const urlInput = addFormElement.querySelector(".popout-add__form-url");
 
-  closePopout();
+//   card.name = titleInput.value;
+//   card.link = urlInput.value;
 
-  titleInput.value = "";
-  urlInput.value = "";
-}
+//   const newCard = new Card(card.name, card.link, "#card");
+//   const cardElement = newCard.createCard();
+//   document.querySelector(".cards").prepend(cardElement);
 
-editButton.addEventListener("click", editPopout.open);
+//   document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
+
+//   closePopout();
+
+//   titleInput.value = "";
+//   urlInput.value = "";
+// }
+
 // editFormElement.addEventListener("submit", (evt) => handleEditFormSubmit(evt));
-editCloseButton.addEventListener("click", closePopout);
+// editCloseButton.addEventListener("click", closePopout);
 
-// addButton.addEventListener("click", console.log("add"));
 // addFormElement.addEventListener("submit", (evt) => handleAddFormSubmit(evt));
-addCloseButton.addEventListener("click", closePopout);
+// addCloseButton.addEventListener("click", closePopout);
 
-imageCloseButton.addEventListener("click", closePopout);
+// imageCloseButton.addEventListener("click", closePopout);
 
-overlayPopout.addEventListener("click", closePopout);
+// overlayPopout.addEventListener("click", closePopout);
