@@ -94,11 +94,37 @@ const editPopout = new PopoutWithForm(
 );
 editPopout.setEventListeners();
 
+const newEditValidation = new FormValidator(
+  {
+    formSelector: content.querySelector(".form"),
+    inputSelector: content.querySelectorAll(".form__input"),
+    submitButtonSelector: content.querySelector(".form__submit"),
+    inactiveButtonClass: content.querySelector(".form__submit_disabled"),
+    inputErrorClass: content.querySelector(".form__input_type_error"),
+    errorClass: content.querySelector(".form__input-error"),
+  },
+  editFormElement
+);
+newEditValidation.enableValidation();
+
 const addPopout = new PopoutWithForm(
   (inputValues) => formTypeSelector(inputValues, "add"),
   ".popout-add"
 );
 addPopout.setEventListeners();
+
+const newAddValidation = new FormValidator(
+  {
+    formSelector: content.querySelector(".form"),
+    inputSelector: content.querySelectorAll(".form__input"),
+    submitButtonSelector: content.querySelector(".form__submit"),
+    inactiveButtonClass: content.querySelector(".form__submit_disabled"),
+    inputErrorClass: content.querySelector(".form__input_type_error"),
+    errorClass: content.querySelector(".form__input-error"),
+  },
+  addFormElement
+);
+newAddValidation.enableValidation();
 
 editButton.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
@@ -106,52 +132,3 @@ editButton.addEventListener("click", () => {
 });
 
 addButton.addEventListener("click", addPopout.open);
-
-// function handleEditFormSubmit(evt) {
-//   evt.preventDefault();
-//   const nameInput = editFormElement.querySelector(".popout-edit__form-name");
-//   const aboutInput = editFormElement.querySelector(".popout-edit__form-text");
-
-//   const profileName = document.querySelector(".profile__info-name");
-//   const profileSubtitle = document.querySelector(".profile__info-subtitle");
-
-//   profileName.textContent = nameInput.value;
-//   profileSubtitle.textContent = aboutInput.value;
-
-//   document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
-
-//   closePopout();
-
-//   nameInput.value = "";
-//   aboutInput.value = "";
-// }
-
-// function handleAddFormSubmit(evt) {
-//   evt.preventDefault();
-//   const titleInput = addFormElement.querySelector(".popout-add__form-title");
-//   const urlInput = addFormElement.querySelector(".popout-add__form-url");
-
-//   card.name = titleInput.value;
-//   card.link = urlInput.value;
-
-//   const newCard = new Card(card.name, card.link, "#card");
-//   const cardElement = newCard.createCard();
-//   document.querySelector(".cards").prepend(cardElement);
-
-//   document.addEventListener("keydown", (evt) => escapeKeyClose(evt));
-
-//   closePopout();
-
-//   titleInput.value = "";
-//   urlInput.value = "";
-// }
-
-// editFormElement.addEventListener("submit", (evt) => handleEditFormSubmit(evt));
-// editCloseButton.addEventListener("click", closePopout);
-
-// addFormElement.addEventListener("submit", (evt) => handleAddFormSubmit(evt));
-// addCloseButton.addEventListener("click", closePopout);
-
-// imageCloseButton.addEventListener("click", closePopout);
-
-// overlayPopout.addEventListener("click", closePopout);

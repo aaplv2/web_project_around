@@ -10,11 +10,6 @@ export default class PopoutWithForm extends Popout {
     this._inputList = Array.from(
       this._popoutElement.querySelectorAll(".form__input")
     );
-    this._inputValues = {};
-    this._inputList.forEach((inputElement) => {
-      this._inputValues[inputElement.name] = inputElement.value;
-    });
-    return this._inputValues;
   }
   submitHandle(evt) {
     evt.preventDefault();
@@ -30,6 +25,13 @@ export default class PopoutWithForm extends Popout {
   }
   close() {
     super.close();
-    this._popoutElement.reset;
+    this._inputList.forEach((inputElement) => {
+      inputElement.value = "";
+    });
+    this._buttonList = document.querySelectorAll(".form__submit");
+    this._buttonList.forEach((buttonElement) => {
+      buttonElement.classList.add("form__submit_inactive");
+      buttonElement.setAttribute("disabled", "true");
+    });
   }
 }

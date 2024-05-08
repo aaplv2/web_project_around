@@ -19,4 +19,8 @@ export default class PopoutWithImage extends Popout {
   close() {
     super.close();
   }
+
+  setEventListeners() {
+    super.setEventListeners();
+  }
 }

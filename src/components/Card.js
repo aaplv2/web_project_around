@@ -1,8 +1,11 @@
+import PopoutWithImage from "./PopoutWithImage";
+
 export default class Card {
   constructor(title, url, cardSelector) {
     this._title = title;
     this._url = url;
     this._cardSelector = cardSelector;
+    this._zoomRender = new PopoutWithImage(".popout-image");
   }
 
   _getTemplate() {
@@ -31,6 +34,10 @@ export default class Card {
     this._cardElement
       .querySelector(".card__image")
       .addEventListener("click", () => this._zoomImage());
+
+    document.addEventListener("click", (evt) =>
+      this._zoomRender.setEventListeners(evt)
+    );
 
     return this._cardElement;
   }
@@ -63,16 +70,10 @@ export default class Card {
     document.querySelector(".popout-image__title").textContent =
       this._cardElement.querySelector(".card__title").textContent;
 
-    document.addEventListener("keydown", (evt) => this._escapeKeyClose(evt));
+    document.addEventListener("keydown", (evt) =>
+      this._zoomRender._handleEscClose(evt)
+    );
 
     return this._imagePopout;
-  }
-
-  _escapeKeyClose(evt) {
-    if (evt.key === "Escape") {
-      this._imagePopout.classList.remove("active");
-      this._overlayPopout.classList.remove("active");
-    }
-    document.removeEventListener("keydown", this._escapeKeyClose);
   }
 }
