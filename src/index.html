@@ -7,14 +7,14 @@
     <meta name="keywods" content="viaje, estados unidos, u.s., personas" />
     <meta name="author" content="Andrés Pardo" />
     <title>Around the U.S.</title>
-    <link rel="stylesheet" href="./pages/index.css" />
+    <!-- <link rel="stylesheet" href="./pages/index.css" /> -->
   </head>
   <body class="body">
     <div class="page">
       <header class="header">
         <img
           class="header__logo"
-          src="./images/around-the-us-white.svg"
+          src="<%=require('./images/around-the-us-white.svg')%>"
           alt="Logo Around The U.S."
         />
         <div class="header__line"></div>
@@ -23,14 +23,17 @@
         <div class="content__profile profile">
           <img
             class="profile__image"
-            src="./images/profile_jacques.jpg"
+            src="<%=require('./images/profile_jacques.jpg')%>"
             alt="Perfil Jacques Cousteau"
           />
           <div class="profile__info">
             <div class="profile__info-top">
               <h2 class="profile__info-name">Jacques Cousteau</h2>
               <button class="profile__button-edit">
-                <img src="./images/Edit-Button.svg" alt="Botón editar" />
+                <img
+                  src="<%=require('./images/Edit-Button.svg')%>"
+                  alt="Botón editar"
+                />
               </button>
             </div>
             <p class="profile__info-subtitle">Explorador</p>
@@ -46,22 +49,35 @@
         <div class="card">
           <div class="card__top">
             <button class="card__button-trash" id="button-trash">
-              <img src="./images/card-trash.svg" alt="Botón eliminar" />
+              <img
+                src="<%=require('./images/card-trash.svg')%>"
+                alt="Botón eliminar"
+              />
             </button>
             <img class="card__image" src=" " alt="" />
           </div>
           <div class="card__bottom">
             <h2 class="card__title"></h2>
             <button class="card__button-like">
-              <img src="./images/card-like.svg" alt="Botón like" />
+              <img
+                src="<%=require('./images/card-like.svg')%>"
+                alt="Botón like"
+              />
             </button>
           </div>
         </div>
       </template>
       <div class="popout-edit">
         <h4 class="popout-edit__title">Editar perfil</h4>
-        <button class="popout-edit__button-close" type="submit">
-          <img src="./images/close-icon.svg" alt="Boton de cerrar" />
+        <button
+          class="popout-edit__button-close popout__button-close"
+          type="submit"
+        >
+          <img
+            src="<%=require('./images/close-icon.svg')%>"
+            alt="Boton de cerrar"
+            class="popout__button-close"
+          />
         </button>
         <form class="popout-edit__form form">
           <input
@@ -91,8 +107,15 @@
       </div>
       <div class="popout-add">
         <h4 class="popout-add__title">Nuevo lugar</h4>
-        <button class="popout-add__button-close" type="submit">
-          <img src="./images/close-icon.svg" alt="Boton de cerrar" />
+        <button
+          class="popout-add__button-close popout__button-close"
+          type="submit"
+        >
+          <img
+            src="<%=require('./images/close-icon.svg')%>"
+            alt="Boton de cerrar"
+            class="popout__button-close"
+          />
         </button>
         <form class="popout-add__form form" novalidate>
           <input
@@ -119,14 +142,21 @@
         </form>
       </div>
       <div class="popout-image">
-        <button class="popout-image__button-close" type="submit">
-          <img src="./images/close-icon.svg" alt="Boton de cerrar" />
+        <button
+          class="popout-image__button-close popout__button-close"
+          type="submit"
+        >
+          <img
+            src="<%=require('./images/close-icon.svg')%>"
+            alt="Boton de cerrar"
+            class="popout__button-close"
+          />
         </button>
         <img class="popout-image__image" src=" " alt="" />
         <p class="popout-image__title"></p>
       </div>
     </div>
     <div id="overlay"></div>
-    <script type="module" src="./scripts/index.js"></script>
+    <!-- <script type="module" src="./pages/index.js"></script> -->
   </body>
 </html>

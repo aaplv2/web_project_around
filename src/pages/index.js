@@ -1,5 +1,17 @@
-import Card from "./Card.js";
-import { renderEdit, renderAdd, closePopout, escapeKeyClose } from "./utils.js";
+import "../pages/index.css";
+import Card from "../components/Card.js";
+import Section from "../components/Section.js";
+import Popout from "../components/Popout.js";
+import PopoutWithForm from "../components/PopoutWithForm.js";
+import PopoutWithImage from "../components/PopoutWithImage.js";
+import UserInfo from "../components/UserInfo.js";
+import FormValidator from "../components/FormValidator.js";
+import {
+  // renderEdit,
+  // renderAdd,
+  closePopout,
+  // escapeKeyClose,
+} from "../components/utils.js";
 
 const content = document.querySelector(".body");
 
@@ -42,11 +54,31 @@ const initialCards = [
   },
 ];
 
-initialCards.forEach((card) => {
-  const newCard = new Card(card.name, card.link, "#card");
-  const cardElement = newCard.createCard();
-  document.querySelector(".cards").append(cardElement);
-});
+const renderSection = new Section(
+  {
+    items: initialCards,
+    renderer: (card) => {
+      const newCard = new Card(card.name, card.link, "#card");
+      const cardElement = newCard.createCard();
+      renderSection.addItem(cardElement);
+    },
+  },
+  ".cards"
+);
+
+renderSection.render();
+
+function formTypeSelector(formType) {
+  if (formType === "edit") {
+    UserInfo.setUserInfo({ name: nameInput.value, about: aboutInput.value });
+  } else if (formType === "add") {
+    const newCard = new Card(card.name, card.link, "#card").createCard();
+    renderSection.addItem(newCard);
+  }
+}
+
+const editPopout = new PopoutWithForm(formTypeSelector("edit"), ".popout-edit");
+editPopout.setEventListeners();
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
@@ -87,12 +119,12 @@ function handleAddFormSubmit(evt) {
   urlInput.value = "";
 }
 
-editButton.addEventListener("click", renderEdit);
-editFormElement.addEventListener("submit", (evt) => handleEditFormSubmit(evt));
+editButton.addEventListener("click", editPopout.open);
+// editFormElement.addEventListener("submit", (evt) => handleEditFormSubmit(evt));
 editCloseButton.addEventListener("click", closePopout);
 
-addButton.addEventListener("click", renderAdd);
-addFormElement.addEventListener("submit", (evt) => handleAddFormSubmit(evt));
+// addButton.addEventListener("click", console.log("add"));
+// addFormElement.addEventListener("submit", (evt) => handleAddFormSubmit(evt));
 addCloseButton.addEventListener("click", closePopout);
 
 imageCloseButton.addEventListener("click", closePopout);
