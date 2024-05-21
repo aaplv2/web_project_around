@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Around The U.S." />
+    <meta name="keywods" content="viaje, estados unidos, u.s., personas" />
+    <meta name="author" content="Andrés Pardo" />
+    <title>Around the U.S.</title>
+  <script defer src="main.js"></script><link href="main.css" rel="stylesheet"></head>
+  <body class="body">
+    <div class="page">
+      <header class="header">
+        <img
+          class="header__logo"
+          src="c75819857ff1599f0c50.svg"
+          alt="Logo Around The U.S."
+        />
+        <div class="header__line"></div>
+      </header>
+      <main class="content">
+        <div class="content__profile profile">
+          <img
+            class="profile__image"
+            src="6163c2039d1f0eb8d7ca.jpg"
+            alt="Perfil Jacques Cousteau"
+          />
+          <div class="profile__info">
+            <div class="profile__info-top">
+              <h2 class="profile__info-name">Jacques Cousteau</h2>
+              <button class="profile__button-edit">
+                <img
+                  src="af236f6cf67005f1d7aa.svg"
+                  alt="Botón editar"
+                />
+              </button>
+            </div>
+            <p class="profile__info-subtitle">Explorador</p>
+          </div>
+          <button class="profile__button-add"></button>
+        </div>
+        <div class="content__cards cards"></div>
+      </main>
+      <footer class="footer">
+        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+      </footer>
+      <template id="card">
+        <div class="card">
+          <div class="card__top">
+            <button class="card__button-trash" id="button-trash">
+              <img
+                src="ba43124316072f7a8629.svg"
+                alt="Botón eliminar"
+              />
+            </button>
+            <img class="card__image" src=" " alt="" />
+          </div>
+          <div class="card__bottom">
+            <h2 class="card__title"></h2>
+            <button class="card__button-like">
+              <img
+                src="1c9aa8bd7665548f48c3.svg"
+                alt="Botón like"
+              />
+            </button>
+          </div>
+        </div>
+      </template>
+      <div class="popout-edit">
+        <h4 class="popout-edit__title">Editar perfil</h4>
+        <button class="popout-edit__button-close" type="submit">
+          <img
+            src="0ca722bc0e922fcea36e.svg"
+            alt="Boton de cerrar"
+            class="close"
+          />
+        </button>
+        <form class="popout-edit__form form">
+          <input
+            class="popout-edit__form-name form__input"
+            placeholder="Nombre"
+            type="text"
+            required
+            minlength="2"
+            maxlength="40"
+            data-error="span-name"
+          />
+          <span class="span-name-error form__input-error"></span>
+          <input
+            class="popout-edit__form-text form__input"
+            placeholder="Acerca de ti"
+            type="text"
+            required
+            minlength="2"
+            maxlength="200"
+            data-error="span-text"
+          />
+          <span class="span-text-error form__input-error"></span>
+          <button class="popout-edit__button-save form__submit" type="submit">
+            Guardar
+          </button>
+        </form>
+      </div>
+      <div class="popout-add">
+        <h4 class="popout-add__title">Nuevo lugar</h4>
+        <button class="popout-add__button-close" type="submit">
+          <img
+            src="0ca722bc0e922fcea36e.svg"
+            alt="Boton de cerrar"
+            class="close"
+          />
+        </button>
+        <form class="popout-add__form form" novalidate>
+          <input
+            class="popout-add__form-title form__input"
+            placeholder="Título"
+            type="text"
+            required
+            minlength="2"
+            maxlength="30"
+            data-error="span-title"
+          />
+          <span class="span-title-error form__input-error"></span>
+          <input
+            class="popout-add__form-url form__input"
+            placeholder="Enlace a la imagen"
+            type="url"
+            required
+            data-error="span-url"
+          />
+          <span class="span-url-error form__input-error"></span>
+          <button class="popout-add__button-save form__submit" type="submit">
+            Guardar
+          </button>
+        </form>
+      </div>
+      <div class="popout-image">
+        <button class="popout-image__button-close" type="submit">
+          <img
+            src="0ca722bc0e922fcea36e.svg"
+            alt="Boton de cerrar"
+            class="close"
+          />
+        </button>
+        <img class="popout-image__image" src=" " alt="" />
+        <p class="popout-image__title"></p>
+      </div>
+    </div>
+    <div id="overlay"></div>
+  </body>
+</html>
