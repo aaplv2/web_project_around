@@ -1,4 +1,5 @@
 import PopoutWithImage from "./PopoutWithImage";
+import PopoutWithForm from "./PopoutWithForm";
 
 export default class Card {
   constructor(title, url, cardSelector) {
@@ -6,6 +7,10 @@ export default class Card {
     this._url = url;
     this._cardSelector = cardSelector;
     this._zoomRender = new PopoutWithImage(".popout-image");
+    // this._deleteConfirmation = new PopoutWithForm(
+    //   this._trashCard(),
+    //   ".popout-confirm"
+    // );
   }
 
   _getTemplate() {
@@ -25,7 +30,10 @@ export default class Card {
 
     this._cardElement
       .querySelector(".card__button-like")
-      .addEventListener("click", () => this._activeLike());
+      .addEventListener("click", () => {
+        this._activeLike();
+        this._counterLike();
+      });
 
     this._cardElement
       .querySelector(".card__button-trash")
@@ -48,6 +56,18 @@ export default class Card {
       buttonLike.classList.remove("active");
     } else {
       buttonLike.classList.add("active");
+    }
+  }
+
+  _counterLike() {
+    const buttonLike = this._cardElement.querySelector(".card__button-like");
+    const buttonCounter = this._cardElement.querySelector(
+      ".card__button-counter"
+    );
+    if (buttonLike.classList.contains("active")) {
+      buttonCounter.textContent = Number(buttonCounter.textContent) + 1;
+    } else {
+      buttonCounter.textContent = Number(buttonCounter.textContent) - 1;
     }
   }
 

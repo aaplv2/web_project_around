@@ -3,6 +3,7 @@ import Popout from "./Popout";
 export default class PopoutWithForm extends Popout {
   constructor(formSubmitHandler, popoutSelector) {
     super(popoutSelector);
+    this.close = this.close.bind(this);
     this._formSubmitHandler = formSubmitHandler;
     this._submitHandle = this.submitHandle.bind(this);
   }
@@ -24,6 +25,7 @@ export default class PopoutWithForm extends Popout {
     super.open();
   }
   close() {
+    this._getInputValues();
     super.close();
     this._inputList.forEach((inputElement) => {
       inputElement.value = "";

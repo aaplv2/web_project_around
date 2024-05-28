@@ -6,6 +6,7 @@ import PopoutWithForm from "../components/PopoutWithForm.js";
 import PopoutWithImage from "../components/PopoutWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
+import api from "../components/Api.js";
 // import renderEdit,
 // renderAdd,
 // closePopout,
@@ -32,59 +33,98 @@ const aboutInput = editFormElement.querySelector(".popout-edit__form-text");
 const titleInput = addFormElement.querySelector(".popout-add__form-title");
 const urlInput = addFormElement.querySelector(".popout-add__form-url");
 
-const initialCards = [
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
-  },
-  {
-    name: "Parque Nacional de la Vanoise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg",
-  },
-  {
-    name: "Montañas Calvas",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg",
-  },
-  {
-    name: "Lago Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg",
-  },
-  {
-    name: "Valle de Yosemite",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg",
-  },
-];
+const profileName = content.querySelector(".profile__info-name");
+const profileAbout = content.querySelector(".profile__info-subtitle");
+const profileImage = content.querySelector(".profile__image");
+const profileImageHover = content.querySelector(".profile__image-hover");
 
-const userInfo = new UserInfo({
+// const initialCards = [
+//   {
+//     name: "Lago di Braies",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
+//   },
+//   {
+//     name: "Parque Nacional de la Vanoise",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg",
+//   },
+//   {
+//     name: "Latemar",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg",
+//   },
+//   {
+//     name: "Montañas Calvas",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg",
+//   },
+//   {
+//     name: "Lago Louise",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg",
+//   },
+//   {
+//     name: "Valle de Yosemite",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg",
+//   },
+// ];
+
+let userInfo = new UserInfo({
   nameSelector: ".profile__info-name",
   aboutSelector: ".profile__info-subtitle",
 });
 
-const renderSection = new Section(
-  {
-    items: initialCards,
-    renderer: (card) => {
-      const newCard = new Card(card.name, card.link, "#card");
-      const cardElement = newCard.createCard();
-      renderSection.addItem(cardElement);
-    },
-  },
-  ".cards"
-);
+api
+  .getUserInfo()
+  .then((users) => {
+    users.forEach((user) => {
+      profileName.textContent = user.name;
+      profileAbout.textContent = user.about;
+      profileImage.src = user.avatar;
+      profileImage.alt = user.name;
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-renderSection.render();
+let renderSection;
+
+api
+  .getInitialCards()
+  .then((cards) => {
+    renderSection = new Section(
+      {
+        items: cards,
+        renderer: (card) => {
+          const newCard = new Card(card.name, card.link, "#card");
+          const cardElement = newCard.createCard();
+          renderSection.addItem(cardElement);
+        },
+      },
+      ".cards"
+    );
+  })
+  .finally(() => {
+    renderSection.render();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 function formTypeSelector(inputValues, formType) {
   if (formType === "edit") {
+    api
+      .updateUserInfo(nameInput.value, aboutInput.value, profileImage.src)
+      .catch((err) => {
+        console.log(err);
+      });
     userInfo.setUserInfo({ name: nameInput.value, about: aboutInput.value });
   } else if (formType === "add") {
+    api.addCard(titleInput.value, urlInput.value).catch((err) => {
+      console.log(err);
+    });
     const newCard = new Card(titleInput.value, urlInput.value, "#card");
     const cardElement = newCard.createCard();
     renderSection.addItem(cardElement);
+  } else if (formType === "profile") {
+    console.log("form perfil");
   }
 }
 
@@ -132,3 +172,7 @@ editButton.addEventListener("click", () => {
 });
 
 addButton.addEventListener("click", addPopout.open);
+
+profileImageHover.addEventListener("click", () => {
+  console.log("Hola");
+});
