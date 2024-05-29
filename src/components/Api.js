@@ -21,7 +21,7 @@ class Api {
     }).then(this.handleRes);
   }
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       headers: {
         authorization: this._headers,
@@ -55,15 +55,45 @@ class Api {
       }),
     }).then(this.handleRes);
   }
-  likeCounter(id) {
-    return fetch(`${this._baseUrl}/cards`, {
-      method: "GET",
+  handleLike(id, isLiked) {
+    if (isLiked) {
+      return this.addLike(id);
+    }
+    return this.removeLike(id);
+  }
+  addLike(id) {
+    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+      method: "PUT",
       headers: {
         authorization: this._headers,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         id,
+      }),
+    }).then(this.handleRes);
+  }
+  removeLike(id) {
+    return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id,
+      }),
+    }).then(this.handleRes);
+  }
+  updateAvatar(avatar) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        avatar,
       }),
     }).then(this.handleRes);
   }

@@ -37,6 +37,7 @@ const profileName = content.querySelector(".profile__info-name");
 const profileAbout = content.querySelector(".profile__info-subtitle");
 const profileImage = content.querySelector(".profile__image");
 const profileImageHover = content.querySelector(".profile__image-hover");
+const profileFormElement = content.querySelector(".popout-profile__form");
 
 // const initialCards = [
 //   {
@@ -68,17 +69,45 @@ const profileImageHover = content.querySelector(".profile__image-hover");
 let userInfo = new UserInfo({
   nameSelector: ".profile__info-name",
   aboutSelector: ".profile__info-subtitle",
+  avatarSelector: ".profile__image",
 });
 
 api
   .getUserInfo()
-  .then((users) => {
-    users.forEach((user) => {
-      profileName.textContent = user.name;
-      profileAbout.textContent = user.about;
-      profileImage.src = user.avatar;
-      profileImage.alt = user.name;
-    });
+  .then((user) => {
+    profileName.textContent = user.name;
+    profileAbout.textContent = user.about;
+    profileImage.src = user.avatar;
+    profileImage.alt = user.name;
+    const userId = user._id;
+    api
+      .getInitialCards()
+      .then((cards) => {
+        renderSection = new Section(
+          {
+            items: cards,
+            renderer: (card) => {
+              const newCard = new Card(
+                card.name,
+                card.link,
+                card.owner,
+                card.likes,
+                userId,
+                "#card"
+              );
+              const cardElement = newCard.createCard();
+              renderSection.addItem(cardElement);
+            },
+          },
+          ".cards"
+        );
+      })
+      .finally(() => {
+        renderSection.render();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   })
   .catch((err) => {
     console.log(err);
@@ -86,27 +115,35 @@ api
 
 let renderSection;
 
-api
-  .getInitialCards()
-  .then((cards) => {
-    renderSection = new Section(
-      {
-        items: cards,
-        renderer: (card) => {
-          const newCard = new Card(card.name, card.link, "#card");
-          const cardElement = newCard.createCard();
-          renderSection.addItem(cardElement);
-        },
-      },
-      ".cards"
-    );
-  })
-  .finally(() => {
-    renderSection.render();
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// api
+//   .getInitialCards()
+//   .then((cards) => {
+//     renderSection = new Section(
+//       {
+//         items: cards,
+//         renderer: (card) => {
+//           const newCard = new Card(
+//             card.name,
+//             card.link,
+//             card.owner,
+//             card.likes,
+//             card._id,
+//             userId,
+//             "#card"
+//           );
+//           const cardElement = newCard.createCard();
+//           renderSection.addItem(cardElement);
+//         },
+//       },
+//       ".cards"
+//     );
+//   })
+//   .finally(() => {
+//     renderSection.render();
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
 function formTypeSelector(inputValues, formType) {
   if (formType === "edit") {
@@ -124,7 +161,10 @@ function formTypeSelector(inputValues, formType) {
     const cardElement = newCard.createCard();
     renderSection.addItem(cardElement);
   } else if (formType === "profile") {
-    console.log("form perfil");
+    api.updateAvatar(profileImage.src).catch((err) => {
+      console.log(err);
+    });
+    userInfo.setUserAvatar({ avatar: profileImage.src });
   }
 }
 
@@ -166,13 +206,29 @@ const newAddValidation = new FormValidator(
 );
 newAddValidation.enableValidation();
 
+const profilePopout = new PopoutWithForm(
+  (inputValues) => formTypeSelector(inputValues, "profile"),
+  ".popout-profile"
+);
+profilePopout.setEventListeners();
+
 editButton.addEventListener("click", () => {
   const userData = userInfo.getUserInfo();
   editPopout.open();
 });
+const newProfileValidation = new FormValidator(
+  {
+    formSelector: content.querySelector(".form"),
+    inputSelector: content.querySelectorAll(".form__input"),
+    submitButtonSelector: content.querySelector(".form__submit"),
+    inactiveButtonClass: content.querySelector(".form__submit_disabled"),
+    inputErrorClass: content.querySelector(".form__input_type_error"),
+    errorClass: content.querySelector(".form__input-error"),
+  },
+  profileFormElement
+);
+newProfileValidation.enableValidation();
 
 addButton.addEventListener("click", addPopout.open);
 
-profileImageHover.addEventListener("click", () => {
-  console.log("Hola");
-});
+profileImageHover.addEventListener("click", profilePopout.open);

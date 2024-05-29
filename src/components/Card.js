@@ -1,16 +1,15 @@
 import PopoutWithImage from "./PopoutWithImage";
 import PopoutWithForm from "./PopoutWithForm";
+import api from "./Api";
 
 export default class Card {
-  constructor(title, url, cardSelector) {
+  constructor(title, url, owner, likes, userId, cardSelector) {
     this._title = title;
     this._url = url;
+    this._owner = owner;
+    this._likes = likes;
+    this._userId = userId;
     this._cardSelector = cardSelector;
-    this._zoomRender = new PopoutWithImage(".popout-image");
-    // this._deleteConfirmation = new PopoutWithForm(
-    //   this._trashCard(),
-    //   ".popout-confirm"
-    // );
   }
 
   _getTemplate() {
@@ -24,28 +23,41 @@ export default class Card {
   createCard() {
     this._cardElement = this._getTemplate();
 
-    this._cardElement.querySelector(".card__title").textContent = this._title;
-    this._cardElement.querySelector(".card__image").alt = this._title;
-    this._cardElement.querySelector(".card__image").src = this._url;
+    const likesCount = this._likes.length;
+    const buttonLike = this._cardElement.querySelector(".card__button-like");
+    const buttonTrash = this._cardElement.querySelector(".card__button-trash");
+    const cardImage = this._cardElement.querySelector(".card__image");
+    const cardTitle = this._cardElement.querySelector(".card__title");
+    const cardCounter = this._cardElement.querySelector(
+      ".card__button-counter"
+    );
 
-    this._cardElement
-      .querySelector(".card__button-like")
-      .addEventListener("click", () => {
-        this._activeLike();
-        this._counterLike();
-      });
+    cardTitle.textContent = this._title;
+    cardImage.alt = this._title;
+    cardImage.src = this._url;
+    cardCounter.textContent = likesCount;
 
-    this._cardElement
-      .querySelector(".card__button-trash")
-      .addEventListener("click", () => this._trashCard());
+    this._zoomRender = new PopoutWithImage(".popout-image");
 
-    this._cardElement
-      .querySelector(".card__image")
-      .addEventListener("click", () => this._zoomImage());
+    buttonLike.addEventListener("click", () => {
+      this._activeLike();
+      this._counterLike();
+      api.handleLike(this._userId, buttonLike.classList.contains("active"));
+    });
+
+    buttonTrash.addEventListener("click", () => this._trashCard());
+
+    cardImage.addEventListener("click", () => this._zoomImage());
 
     document.addEventListener("click", (evt) =>
       this._zoomRender.setEventListeners(evt)
     );
+
+    this._likes.forEach((like) => {
+      if (this._userId === like._id) {
+        buttonLike.classList.add("active");
+      }
+    });
 
     return this._cardElement;
   }
