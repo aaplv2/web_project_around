@@ -4,7 +4,7 @@ export default class PopoutWithImage extends Popout {
   constructor(popoutSelector) {
     super(popoutSelector);
   }
-  open(title, url) {
+  open(title, link) {
     super.open();
 
     const imagePopout = document.querySelector(".popout-image");
@@ -12,15 +12,7 @@ export default class PopoutWithImage extends Popout {
     const imagePopoutImage = imagePopout.querySelector(".popout-image__image");
 
     imagePopoutTitle.textContent = title;
-    imagePopoutImage.src = url;
+    imagePopoutImage.src = link;
     imagePopoutImage.alt = title;
-  }
-
-  close() {
-    super.close();
-  }
-
-  setEventListeners() {
-    super.setEventListeners();
   }
 }

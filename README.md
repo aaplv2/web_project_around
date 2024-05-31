@@ -22,7 +22,10 @@
   =======
 - Reestruccturación de clases en base a la sintaxis de destructuración
 - Proyecto construido en Webpack.
-  > > > > > > > develop
+- Base de datos extraidas de API.
+- Reformulación completa de la página para que este orientada a JS modular.
+- Trabajo con programacion asíncrona.
+- Proyecto desplegado en GitHub Pages.
 - GitHub Pages: https://aaplv2.github.io/web_project_around/
 
 ## Características
@@ -34,6 +37,8 @@
 - Seleccionar carta(s) favorita(s)
 - Programación Orientadad a Objetos (POO)
 - Webpack
+- APIs
+- GitHub
 
 ## Capturas
 

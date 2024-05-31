@@ -33,6 +33,7 @@
   background: none;
   border: 0;
   cursor: pointer;
+  mix-blend-mode: difference;
 }
 
 .card__button-trash:hover {
@@ -59,14 +60,19 @@
   overflow: hidden;
 }
 
-.card__button-like {
+.card__button {
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  margin-right: 15px;
+}
+
+.card__button-like {
   padding: 0;
   background: none;
   border: 0;
   cursor: pointer;
-  margin-right: 15px;
 }
 
 .card__button-like:hover {
@@ -82,6 +88,12 @@
   height: 19px;
   display: flex;
   align-self: center;
+}
+
+.card__button-counter {
+  margin: 0;
+  margin-top: 10px;
+  font-size: 13px;
 }
 
 @media screen and (max-width: 977px) {
