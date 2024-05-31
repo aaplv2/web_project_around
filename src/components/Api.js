@@ -112,7 +112,6 @@ class Api {
 }
 
 const api = new Api(
-  // `https://664e5457fafad45dfadfcd68.mockapi.io/`,
   `https://around.nomoreparties.co/v1/web_es_10`,
   "bf26d6eb-e32a-4dfe-be0d-af6eb19b0a81"
 );

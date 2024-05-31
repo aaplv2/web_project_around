@@ -101,9 +101,10 @@
             data-error="span-text"
           />
           <span class="span-text-error form__input-error"></span>
-          <button class="popout-edit__button-save form__submit" type="submit">
-            Guardar
-          </button>
+          <button
+            class="popout-edit__button-save form__submit"
+            type="submit"
+          ></button>
         </form>
       </div>
       <div class="popout-add">
@@ -139,9 +140,10 @@
             data-error="span-url"
           />
           <span class="span-url-error form__input-error"></span>
-          <button class="popout-add__button-save form__submit" type="submit">
-            Guardar
-          </button>
+          <button
+            class="popout-add__button-save form__submit"
+            type="submit"
+          ></button>
         </form>
       </div>
       <div class="popout-image">
@@ -158,20 +160,7 @@
         <img class="popout-image__image" src=" " alt="" />
         <p class="popout-image__title"></p>
       </div>
-      <div class="popout-confirm">
-        <h4 class="popout-confirm__title">¿Estás seguro?</h4>
-        <button
-          class="popout-confirm__button-close popout__button-close"
-          type="submit"
-        >
-          <img
-            src="<%=require('./images/close-icon.svg')%>"
-            alt="Boton de cerrar"
-            class="popout__button-close"
-          />
-        </button>
-        <button class="popout-confirm__button" type="submit">Si</button>
-      </div>
+
       <div class="popout-profile">
         <h4 class="popout-profile__title">Cambiar foto de perfil</h4>
         <button
@@ -199,10 +188,22 @@
           <button
             class="popout-profile__button-save form__submit"
             type="submit"
-          >
-            Guardar
-          </button>
+          ></button>
         </form>
+      </div>
+      <div class="popout-confirm">
+        <h4 class="popout-confirm__title">¿Estás seguro?</h4>
+        <button
+          class="popout-confirm__button-close popout__button-close"
+          type="submit"
+        >
+          <img
+            src="<%=require('./images/close-icon.svg')%>"
+            alt="Boton de cerrar"
+            class="popout__button-close"
+          />
+        </button>
+        <button class="popout-confirm__button" type="submit">Si</button>
       </div>
     </div>
     <div id="overlay"></div>

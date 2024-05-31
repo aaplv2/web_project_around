@@ -7,20 +7,17 @@ import PopoutWithConfirmation from "../components/PopoutWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 import api from "../components/Api.js";
-
-const content = document.querySelector(".body");
-
-const addButton = content.querySelector(".profile__button-add");
-const addFormElement = content.querySelector(".popout-add__form");
-
-const editButton = content.querySelector(".profile__button-edit");
-const editFormElement = content.querySelector(".popout-edit__form");
-
-const profileName = content.querySelector(".profile__info-name");
-const profileAbout = content.querySelector(".profile__info-subtitle");
-const profileImage = content.querySelector(".profile__image");
-const profileImageHover = content.querySelector(".profile__image-hover");
-const profileFormElement = content.querySelector(".popout-profile__form");
+import {
+  addButton,
+  addFormElement,
+  editButton,
+  editFormElement,
+  profileAbout,
+  profileFormElement,
+  profileImage,
+  profileImageHover,
+  profileName,
+} from "../utils/utils.js";
 
 const zoomRender = new PopoutWithImage(".popout-image");
 
@@ -50,6 +47,8 @@ let userInfo = new UserInfo({
   aboutSelector: ".profile__info-subtitle",
   avatarSelector: ".profile__image",
 });
+
+let renderSection;
 
 api
   .getUserInfo()
@@ -98,71 +97,13 @@ api
     console.log(err);
   });
 
-let renderSection;
-
-function formTypeSelector(inputValues, formType) {
-  if (formType === "edit") {
-    api
-      .updateUserInfo(inputValues.profileName, inputValues.profileAbout)
-      .then(
-        userInfo.setUserInfo({
-          name: inputValues.profileName,
-          about: inputValues.profileAbout,
-        })
-      )
-      .catch((err) => {
-        console.log(err);
-      });
-  } else if (formType === "add") {
-    api
-      .addCard(inputValues.cardTitle, inputValues.cardUrl)
-      .then((card) => {
-        const newCard = new Card(
-          inputValues.cardTitle,
-          inputValues.cardUrl,
-          card.owner,
-          card.likes,
-          card._id,
-          profileName.id,
-          "#card",
-          () => {
-            zoomRender.open(card.name, card.link);
-          },
-          deleteConfirmation.open
-        );
-        const cardElement = newCard.createCard();
-        renderSection.addItem(cardElement);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else if (formType === "profile") {
-    api
-      .updateAvatar(inputValues.avatarUrl)
-      .then(userInfo.setUserAvatar({ avatar: inputValues.avatarUrl }))
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-}
-
 const editPopout = new PopoutWithForm(
   (inputValues) => formTypeSelector(inputValues, "edit"),
   ".popout-edit"
 );
 editPopout.setEventListeners();
 
-const newEditValidation = new FormValidator(
-  {
-    formSelector: content.querySelector(".form"),
-    inputSelector: content.querySelectorAll(".form__input"),
-    submitButtonSelector: content.querySelector(".form__submit"),
-    inactiveButtonClass: content.querySelector(".form__submit_disabled"),
-    inputErrorClass: content.querySelector(".form__input_type_error"),
-    errorClass: content.querySelector(".form__input-error"),
-  },
-  editFormElement
-);
+const newEditValidation = new FormValidator(editFormElement);
 newEditValidation.enableValidation();
 
 const addPopout = new PopoutWithForm(
@@ -171,17 +112,7 @@ const addPopout = new PopoutWithForm(
 );
 addPopout.setEventListeners();
 
-const newAddValidation = new FormValidator(
-  {
-    formSelector: content.querySelector(".form"),
-    inputSelector: content.querySelectorAll(".form__input"),
-    submitButtonSelector: content.querySelector(".form__submit"),
-    inactiveButtonClass: content.querySelector(".form__submit_disabled"),
-    inputErrorClass: content.querySelector(".form__input_type_error"),
-    errorClass: content.querySelector(".form__input-error"),
-  },
-  addFormElement
-);
+const newAddValidation = new FormValidator(addFormElement);
 newAddValidation.enableValidation();
 
 const profilePopout = new PopoutWithForm(
@@ -190,23 +121,67 @@ const profilePopout = new PopoutWithForm(
 );
 profilePopout.setEventListeners();
 
-const newProfileValidation = new FormValidator(
-  {
-    formSelector: content.querySelector(".form"),
-    inputSelector: content.querySelectorAll(".form__input"),
-    submitButtonSelector: content.querySelector(".form__submit"),
-    inactiveButtonClass: content.querySelector(".form__submit_disabled"),
-    inputErrorClass: content.querySelector(".form__input_type_error"),
-    errorClass: content.querySelector(".form__input-error"),
-  },
-  profileFormElement
-);
+const newProfileValidation = new FormValidator(profileFormElement);
 newProfileValidation.enableValidation();
 
-editButton.addEventListener("click", () => {
-  const userData = userInfo.getUserInfo();
-  editPopout.open();
-});
+function editSubmit(inputValues) {
+  api
+    .updateUserInfo(inputValues.profileName, inputValues.profileAbout)
+    .then(
+      userInfo.setUserInfo({
+        name: inputValues.profileName,
+        about: inputValues.profileAbout,
+      })
+    )
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
+function addSubmit(inputValues) {
+  api
+    .addCard(inputValues.cardTitle, inputValues.cardUrl)
+    .then((card) => {
+      const newCard = new Card(
+        inputValues.cardTitle,
+        inputValues.cardUrl,
+        card.owner,
+        card.likes,
+        card._id,
+        profileName.id,
+        "#card",
+        () => {
+          zoomRender.open(card.name, card.link);
+        },
+        deleteConfirmation.open
+      );
+      const cardElement = newCard.createCard();
+      renderSection.addItem(cardElement);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function profileSubmit(inputValues) {
+  api
+    .updateAvatar(inputValues.avatarUrl)
+    .then(userInfo.setUserAvatar({ avatar: inputValues.avatarUrl }))
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function formTypeSelector(inputValues, formType) {
+  if (formType === "edit") {
+    editSubmit(inputValues);
+  } else if (formType === "add") {
+    addSubmit(inputValues);
+  } else if (formType === "profile") {
+    profileSubmit(inputValues);
+  }
+}
+
+editButton.addEventListener("click", editPopout.open);
 addButton.addEventListener("click", addPopout.open);
 profileImageHover.addEventListener("click", profilePopout.open);
