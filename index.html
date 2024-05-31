@@ -20,14 +20,11 @@
       </header>
       <main class="content">
         <div class="content__profile profile">
-          <img
-            class="profile__image"
-            src="6163c2039d1f0eb8d7ca.jpg"
-            alt="Perfil Jacques Cousteau"
-          />
+          <img class="profile__image" src="" alt="" />
+          <img class="profile__image-hover" src="" alt="" />
           <div class="profile__info">
             <div class="profile__info-top">
-              <h2 class="profile__info-name">Jacques Cousteau</h2>
+              <h2 class="profile__info-name"></h2>
               <button class="profile__button-edit">
                 <img
                   src="af236f6cf67005f1d7aa.svg"
@@ -35,7 +32,7 @@
                 />
               </button>
             </div>
-            <p class="profile__info-subtitle">Explorador</p>
+            <p class="profile__info-subtitle"></p>
           </div>
           <button class="profile__button-add"></button>
         </div>
@@ -57,30 +54,31 @@
           </div>
           <div class="card__bottom">
             <h2 class="card__title"></h2>
-            <button class="card__button-like">
-              <img
-                src="1c9aa8bd7665548f48c3.svg"
-                alt="Botón like"
-              />
-            </button>
+            <div class="card__button">
+              <button class="card__button-like">
+                <img
+                  src="1c9aa8bd7665548f48c3.svg"
+                  alt="Botón like"
+                />
+              </button>
+              <label class="card__button-counter">0</label>
+            </div>
           </div>
         </div>
       </template>
       <div class="popout-edit">
         <h4 class="popout-edit__title">Editar perfil</h4>
-        <button
-          class="popout-edit__button-close popout__button-close"
-          type="submit"
-        >
+        <button class="popout-edit__button-close" type="submit">
           <img
             src="0ca722bc0e922fcea36e.svg"
             alt="Boton de cerrar"
-            class="popout__button-close"
+            class="close"
           />
         </button>
         <form class="popout-edit__form form">
           <input
             class="popout-edit__form-name form__input"
+            name="profileName"
             placeholder="Nombre"
             type="text"
             required
@@ -91,6 +89,7 @@
           <span class="span-name-error form__input-error"></span>
           <input
             class="popout-edit__form-text form__input"
+            name="profileAbout"
             placeholder="Acerca de ti"
             type="text"
             required
@@ -99,26 +98,25 @@
             data-error="span-text"
           />
           <span class="span-text-error form__input-error"></span>
-          <button class="popout-edit__button-save form__submit" type="submit">
-            Guardar
-          </button>
+          <button
+            class="popout-edit__button-save form__submit"
+            type="submit"
+          ></button>
         </form>
       </div>
       <div class="popout-add">
         <h4 class="popout-add__title">Nuevo lugar</h4>
-        <button
-          class="popout-add__button-close popout__button-close"
-          type="submit"
-        >
+        <button class="popout-add__button-close" type="submit">
           <img
             src="0ca722bc0e922fcea36e.svg"
             alt="Boton de cerrar"
-            class="popout__button-close"
+            class="close"
           />
         </button>
         <form class="popout-add__form form" novalidate>
           <input
             class="popout-add__form-title form__input"
+            name="cardTitle"
             placeholder="Título"
             type="text"
             required
@@ -129,20 +127,35 @@
           <span class="span-title-error form__input-error"></span>
           <input
             class="popout-add__form-url form__input"
+            name="cardUrl"
             placeholder="Enlace a la imagen"
             type="url"
             required
             data-error="span-url"
           />
           <span class="span-url-error form__input-error"></span>
-          <button class="popout-add__button-save form__submit" type="submit">
-            Guardar
-          </button>
+          <button
+            class="popout-add__button-save form__submit"
+            type="submit"
+          ></button>
         </form>
       </div>
       <div class="popout-image">
+        <button class="popout-image__button-close" type="submit">
+          <img
+            src="0ca722bc0e922fcea36e.svg"
+            alt="Boton de cerrar"
+            class="close"
+          />
+        </button>
+        <img class="popout-image__image" src=" " alt="" />
+        <p class="popout-image__title"></p>
+      </div>
+
+      <div class="popout-profile">
+        <h4 class="popout-profile__title">Cambiar foto de perfil</h4>
         <button
-          class="popout-image__button-close popout__button-close"
+          class="popout-profile__button-close popout__button-close"
           type="submit"
         >
           <img
@@ -151,8 +164,37 @@
             class="popout__button-close"
           />
         </button>
-        <img class="popout-image__image" src=" " alt="" />
-        <p class="popout-image__title"></p>
+        <form class="popout-profile__form form" novalidate>
+          <input
+            class="popout-profile__form-url form__input"
+            name="avatarUrl"
+            placeholder="Enlace a la imagen"
+            type="url"
+            required
+            minlength="2"
+            maxlength="100"
+            data-error="span-url"
+          />
+          <span class="span-url-error form__input-error"></span>
+          <button
+            class="popout-profile__button-save form__submit"
+            type="submit"
+          ></button>
+        </form>
+      </div>
+      <div class="popout-confirm">
+        <h4 class="popout-confirm__title">¿Estás seguro?</h4>
+        <button
+          class="popout-confirm__button-close popout__button-close"
+          type="submit"
+        >
+          <img
+            src="0ca722bc0e922fcea36e.svg"
+            alt="Boton de cerrar"
+            class="popout__button-close"
+          />
+        </button>
+        <button class="popout-confirm__button" type="submit">Si</button>
       </div>
     </div>
     <div id="overlay"></div>
