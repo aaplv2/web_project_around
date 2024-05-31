@@ -18,8 +18,6 @@
 - JavaScript para validación de formularios, activar y desactivar botón de guardar, salir del formulario mediante tecla Escape y haciendo click fuera del formulario.
 - Se utilizan módulos para las operaciones que crean cartas y para las que validan los formularios de Edición de Perfil y Añadir una Carta.
 - Los módulos contienen clases nombradas en base a sus respectivas operaciones. Todo con el fin de optimizar el código para que cumplir con POO.
-  <<<<<<< HEAD
-  =======
 - Reestruccturación de clases en base a la sintaxis de destructuración
 - Proyecto construido en Webpack.
 - Base de datos extraidas de API.
