@@ -55,6 +55,18 @@ class Api {
       }),
     }).then(this.handleRes);
   }
+  deleteCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: {
+        authorization: this._headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cardId,
+      }),
+    }).then(this.handleRes);
+  }
   handleLike(id, isLiked) {
     if (isLiked) {
       return this.addLike(id);

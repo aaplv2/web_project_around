@@ -1,22 +1,33 @@
-import PopoutWithImage from "./PopoutWithImage";
-import PopoutWithForm from "./PopoutWithForm";
 import api from "./Api";
 
 export default class Card {
-  constructor(title, url, owner, likes, userId, cardSelector) {
+  constructor(
+    title,
+    url,
+    owner,
+    likes,
+    cardId,
+    userId,
+    cardSelector,
+    zoomCallback,
+    deleteCallback
+  ) {
     this._title = title;
     this._url = url;
     this._owner = owner;
     this._likes = likes;
+    this._cardId = cardId;
     this._userId = userId;
     this._cardSelector = cardSelector;
+    this._zoomCallback = zoomCallback;
+    this._deleteCallback = deleteCallback;
   }
 
   _getTemplate() {
     const cardTemplate = document
       .querySelector(this._cardSelector)
-      .content.querySelector(".card")
-      .cloneNode(true);
+      .cloneNode(true)
+      .content.querySelector(".card");
     return cardTemplate;
   }
 
@@ -32,32 +43,32 @@ export default class Card {
       ".card__button-counter"
     );
 
+    if (this._userId !== this._owner._id) {
+      buttonTrash.remove();
+    }
+
     cardTitle.textContent = this._title;
     cardImage.alt = this._title;
     cardImage.src = this._url;
     cardCounter.textContent = likesCount;
 
-    this._zoomRender = new PopoutWithImage(".popout-image");
-
     buttonLike.addEventListener("click", () => {
       this._activeLike();
       this._counterLike();
-      api.handleLike(this._userId, buttonLike.classList.contains("active"));
+      api.handleLike(this._cardId, buttonLike.classList.contains("active"));
     });
 
-    buttonTrash.addEventListener("click", () => this._trashCard());
-
-    cardImage.addEventListener("click", () => this._zoomImage());
-
-    document.addEventListener("click", (evt) =>
-      this._zoomRender.setEventListeners(evt)
-    );
+    cardImage.addEventListener("click", this._zoomCallback);
 
     this._likes.forEach((like) => {
       if (this._userId === like._id) {
         buttonLike.classList.add("active");
       }
     });
+
+    buttonTrash.addEventListener("click", () =>
+      this._deleteCallback(this._cardId, this._cardElement)
+    );
 
     return this._cardElement;
   }
@@ -83,29 +94,8 @@ export default class Card {
     }
   }
 
-  _trashCard() {
+  _deleteCard() {
     this._buttonTrash = this._cardElement.querySelector("#button-trash");
     this._cardElement.remove(this._buttonTrash);
-  }
-
-  _zoomImage() {
-    this._imagePopout = document.querySelector(".popout-image");
-    this._overlayPopout = document.querySelector("#overlay");
-
-    this._imagePopout.classList.add("active");
-    this._overlayPopout.classList.add("active");
-
-    document.querySelector(".popout-image__image").src =
-      this._cardElement.querySelector(".card__image").src;
-    document.querySelector(".popout-image__image").alt =
-      this._cardElement.querySelector(".card__title").textContent;
-    document.querySelector(".popout-image__title").textContent =
-      this._cardElement.querySelector(".card__title").textContent;
-
-    document.addEventListener("keydown", (evt) =>
-      this._zoomRender._handleEscClose(evt)
-    );
-
-    return this._imagePopout;
   }
 }

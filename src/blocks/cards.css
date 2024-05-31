@@ -33,6 +33,7 @@
   background: none;
   border: 0;
   cursor: pointer;
+  mix-blend-mode: difference;
 }
 
 .card__button-trash:hover {

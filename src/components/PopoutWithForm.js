@@ -11,6 +11,11 @@ export default class PopoutWithForm extends Popout {
     this._inputList = Array.from(
       this._popoutElement.querySelectorAll(".form__input")
     );
+    const inputObj = {};
+    this._inputList.forEach((inputElement) => {
+      inputObj[inputElement.name] = inputElement.value;
+    });
+    return inputObj;
   }
   submitHandle(evt) {
     evt.preventDefault();
@@ -25,11 +30,11 @@ export default class PopoutWithForm extends Popout {
     super.open();
   }
   close() {
-    this._getInputValues();
+    // this._getInputValues();
     super.close();
-    this._inputList.forEach((inputElement) => {
-      inputElement.value = "";
-    });
+    // this._inputList.forEach((inputElement) => {
+    //   inputElement.value = "";
+    // });
     this._buttonList = document.querySelectorAll(".form__submit");
     this._buttonList.forEach((buttonElement) => {
       buttonElement.classList.add("form__submit_inactive");

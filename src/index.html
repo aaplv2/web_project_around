@@ -81,6 +81,7 @@
         <form class="popout-edit__form form">
           <input
             class="popout-edit__form-name form__input"
+            name="profileName"
             placeholder="Nombre"
             type="text"
             required
@@ -91,6 +92,7 @@
           <span class="span-name-error form__input-error"></span>
           <input
             class="popout-edit__form-text form__input"
+            name="profileAbout"
             placeholder="Acerca de ti"
             type="text"
             required
@@ -119,6 +121,7 @@
         <form class="popout-add__form form" novalidate>
           <input
             class="popout-add__form-title form__input"
+            name="cardTitle"
             placeholder="Título"
             type="text"
             required
@@ -129,6 +132,7 @@
           <span class="span-title-error form__input-error"></span>
           <input
             class="popout-add__form-url form__input"
+            name="cardUrl"
             placeholder="Enlace a la imagen"
             type="url"
             required
@@ -183,11 +187,12 @@
         <form class="popout-profile__form form" novalidate>
           <input
             class="popout-profile__form-url form__input"
+            name="avatarUrl"
             placeholder="Enlace a la imagen"
             type="url"
             required
             minlength="2"
-            maxlength="30"
+            maxlength="100"
             data-error="span-url"
           />
           <span class="span-url-error form__input-error"></span>
