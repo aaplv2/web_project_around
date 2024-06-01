@@ -15,7 +15,7 @@ export default class PopoutWithConfirmation extends Popout {
     this._cardElement = cardElement;
     super.open();
   }
-  submitHandle() {
+  submitHandle(evt) {
     evt.preventDefault();
     this._deleteCallback(this._cardId, this._cardElement);
   }

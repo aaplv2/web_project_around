@@ -58,7 +58,9 @@ export default class Card {
       api.handleLike(this._cardId, buttonLike.classList.contains("active"));
     });
 
-    cardImage.addEventListener("click", this._zoomCallback);
+    cardImage.addEventListener("click", () => {
+      this._zoomCallback(this._title, this._url);
+    });
 
     this._likes.forEach((like) => {
       if (this._userId === like._id) {
