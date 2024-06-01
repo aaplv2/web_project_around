@@ -8,15 +8,15 @@ import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 import api from "../components/Api.js";
 import {
-  addButton,
+  // addButton,
   addFormElement,
-  editButton,
+  // editButton,
   editFormElement,
-  profileAbout,
   profileFormElement,
   profileImage,
-  profileImageHover,
+  // profileImageHover,
   profileName,
+  popoutsConfig,
 } from "../utils/utils.js";
 
 const zoomRender = new PopoutWithImage(".popout-image");
@@ -27,20 +27,6 @@ const deleteConfirmation = new PopoutWithConfirmation(
     confirmationSubmit(cardId, cardElement);
   }
 );
-deleteConfirmation.setEventListeners();
-
-function confirmationSubmit(cardId, cardElement) {
-  api
-    .deleteCard(cardId)
-    .then(() => {
-      const deleteButton = cardElement.querySelector("#button-trash");
-      cardElement.remove(deleteButton);
-      deleteConfirmation.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
 
 let userInfo = new UserInfo({
   nameSelector: ".profile__info-name",
@@ -48,13 +34,16 @@ let userInfo = new UserInfo({
   avatarSelector: ".profile__image",
 });
 
+new FormValidator(editFormElement);
+new FormValidator(addFormElement);
+new FormValidator(profileFormElement);
+
 let renderSection;
 
 api
   .getUserInfo()
   .then((user) => {
-    profileName.textContent = user.name;
-    profileAbout.textContent = user.about;
+    userInfo.setUserInfo(user);
     profileName.id = user._id;
     profileImage.src = user.avatar;
     profileImage.alt = user.name;
@@ -66,7 +55,7 @@ api
           {
             items: cards,
             renderer: (card) => {
-              const newCard = new Card(
+              generateCardInstance(
                 card.name,
                 card.link,
                 card.owner,
@@ -74,13 +63,9 @@ api
                 card._id,
                 userId,
                 "#card",
-                () => {
-                  zoomRender.open(card.name, card.link);
-                },
+                zoomRender.open,
                 deleteConfirmation.open
               );
-              const cardElement = newCard.createCard();
-              renderSection.addItem(cardElement);
             },
           },
           ".cards"
@@ -96,33 +81,6 @@ api
   .catch((err) => {
     console.log(err);
   });
-
-const editPopout = new PopoutWithForm(
-  (inputValues) => formTypeSelector(inputValues, "edit"),
-  ".popout-edit"
-);
-editPopout.setEventListeners();
-
-const newEditValidation = new FormValidator(editFormElement);
-newEditValidation.enableValidation();
-
-const addPopout = new PopoutWithForm(
-  (inputValues) => formTypeSelector(inputValues, "add"),
-  ".popout-add"
-);
-addPopout.setEventListeners();
-
-const newAddValidation = new FormValidator(addFormElement);
-newAddValidation.enableValidation();
-
-const profilePopout = new PopoutWithForm(
-  (inputValues) => formTypeSelector(inputValues, "profile"),
-  ".popout-profile"
-);
-profilePopout.setEventListeners();
-
-const newProfileValidation = new FormValidator(profileFormElement);
-newProfileValidation.enableValidation();
 
 function editSubmit(inputValues) {
   api
@@ -142,7 +100,7 @@ function addSubmit(inputValues) {
   api
     .addCard(inputValues.cardTitle, inputValues.cardUrl)
     .then((card) => {
-      const newCard = new Card(
+      generateCardInstance(
         inputValues.cardTitle,
         inputValues.cardUrl,
         card.owner,
@@ -150,13 +108,9 @@ function addSubmit(inputValues) {
         card._id,
         profileName.id,
         "#card",
-        () => {
-          zoomRender.open(card.name, card.link);
-        },
+        zoomRender.open,
         deleteConfirmation.open
       );
-      const cardElement = newCard.createCard();
-      renderSection.addItem(cardElement);
     })
     .catch((err) => {
       console.log(err);
@@ -182,6 +136,48 @@ function formTypeSelector(inputValues, formType) {
   }
 }
 
-editButton.addEventListener("click", editPopout.open);
-addButton.addEventListener("click", addPopout.open);
-profileImageHover.addEventListener("click", profilePopout.open);
+function confirmationSubmit(cardId, cardElement) {
+  api
+    .deleteCard(cardId)
+    .then(() => {
+      const deleteButton = cardElement.querySelector("#button-trash");
+      cardElement.remove(deleteButton);
+      deleteConfirmation.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+function generateCardInstance(
+  title,
+  url,
+  owner,
+  likes,
+  cardId,
+  userId,
+  selector,
+  handleCardClick,
+  handleDeleteClick
+) {
+  const newCard = new Card(
+    title,
+    url,
+    owner,
+    likes,
+    cardId,
+    userId,
+    selector,
+    handleCardClick,
+    handleDeleteClick
+  );
+  const cardElement = newCard.createCard();
+  renderSection.addItem(cardElement);
+}
+popoutsConfig.forEach((popoutType) => {
+  const popOut = new PopoutWithForm(
+    (inputValues) => formTypeSelector(inputValues, popoutType.formType),
+    popoutType.popoutSelector
+  );
+  popoutType.openButton.addEventListener("click", popOut.open);
+});

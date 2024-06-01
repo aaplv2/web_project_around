@@ -8,6 +8,7 @@ export default class PopoutWithConfirmation extends Popout {
     this._confirmButton = this._popoutElement.querySelector(
       ".popout-confirm__button"
     );
+    this.setEventListeners();
   }
   open(cardId, cardElement) {
     this._cardId = cardId;

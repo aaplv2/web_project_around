@@ -12,14 +12,25 @@ const profileImage = content.querySelector(".profile__image");
 const profileImageHover = content.querySelector(".profile__image-hover");
 const profileFormElement = content.querySelector(".popout-profile__form");
 
+const popoutsConfig = [
+  { formType: "edit", popoutSelector: ".popout-edit", openButton: editButton },
+  { formType: "add", popoutSelector: ".popout-add", openButton: addButton },
+  {
+    formType: "profile",
+    popoutSelector: ".popout-profile",
+    openButton: profileImageHover,
+  },
+];
+
 export {
-  addButton,
+  // addButton,
   addFormElement,
-  editButton,
+  // editButton,
   editFormElement,
   profileAbout,
   profileFormElement,
   profileImage,
-  profileImageHover,
+  // profileImageHover,
   profileName,
+  popoutsConfig,
 };

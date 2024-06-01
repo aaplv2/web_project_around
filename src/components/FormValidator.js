@@ -1,6 +1,7 @@
 export default class FormValidator {
   constructor(formType) {
     this._formType = formType;
+    this.enableValidation();
   }
 
   _showInputError = (formElement, inputElement, errorMessage) => {
