@@ -23,14 +23,11 @@ const popoutsConfig = [
 ];
 
 export {
-  // addButton,
   addFormElement,
-  // editButton,
   editFormElement,
   profileAbout,
   profileFormElement,
   profileImage,
-  // profileImageHover,
   profileName,
   popoutsConfig,
 };

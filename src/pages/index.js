@@ -8,13 +8,10 @@ import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 import api from "../components/Api.js";
 import {
-  // addButton,
   addFormElement,
-  // editButton,
   editFormElement,
   profileFormElement,
   profileImage,
-  // profileImageHover,
   profileName,
   popoutsConfig,
 } from "../utils/utils.js";
