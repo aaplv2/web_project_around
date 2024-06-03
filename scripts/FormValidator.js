@@ -1,7 +1,12 @@
 export default class FormValidator {
-  constructor(formType) {
+  constructor(formData, formType) {
+    this._formSelector = formData.formSelector;
+    this._inputSelector = formData.inputSelector;
+    this._submitButtonSelector = formData.submitButtonSelector;
+    this._inactiveButtonClass = formData.inactiveButtonClass;
+    this._inputErrorClass = formData.inputErrorClass;
+    this._errorClass = formData.errorClass;
     this._formType = formType;
-    this.enableValidation();
   }
 
   _showInputError = (formElement, inputElement, errorMessage) => {

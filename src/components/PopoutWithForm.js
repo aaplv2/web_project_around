@@ -10,6 +10,7 @@ export default class PopoutWithForm extends Popout {
     this._inputList = Array.from(
       this._popoutElement.querySelectorAll(".form__input")
     );
+    this.setEventListeners();
   }
   _getInputValues() {
     const inputObj = {};

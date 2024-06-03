@@ -20,8 +20,12 @@
       </header>
       <main class="content">
         <div class="content__profile profile">
-          <img class="profile__image" src="" alt="" />
-          <img class="profile__image-hover" src="" alt="" />
+          <img
+            class="profile__image"
+            src="<%=require('./images/profile_jacques.jpg')%>"
+            alt="Explorador"
+          />
+          <div class="profile__image-hover"></div>
           <div class="profile__info">
             <div class="profile__info-top">
               <h2 class="profile__info-name"></h2>
@@ -68,14 +72,11 @@
       </template>
       <div class="popout-edit">
         <h4 class="popout-edit__title">Editar perfil</h4>
-        <button
-          class="popout-edit__button-close popout__button-close"
-          type="submit"
-        >
+        <button class="popout-edit__button-close" type="submit">
           <img
             src="<%=require('./images/close-icon.svg')%>"
             alt="Boton de cerrar"
-            class="popout__button-close"
+            class="close"
           />
         </button>
         <form class="popout-edit__form form">
@@ -109,14 +110,11 @@
       </div>
       <div class="popout-add">
         <h4 class="popout-add__title">Nuevo lugar</h4>
-        <button
-          class="popout-add__button-close popout__button-close"
-          type="submit"
-        >
+        <button class="popout-add__button-close" type="submit">
           <img
             src="<%=require('./images/close-icon.svg')%>"
             alt="Boton de cerrar"
-            class="popout__button-close"
+            class="close"
           />
         </button>
         <form class="popout-add__form form" novalidate>
@@ -147,14 +145,11 @@
         </form>
       </div>
       <div class="popout-image">
-        <button
-          class="popout-image__button-close popout__button-close"
-          type="submit"
-        >
+        <button class="popout-image__button-close" type="submit">
           <img
             src="<%=require('./images/close-icon.svg')%>"
             alt="Boton de cerrar"
-            class="popout__button-close"
+            class="close"
           />
         </button>
         <img class="popout-image__image" src=" " alt="" />
@@ -163,14 +158,11 @@
 
       <div class="popout-profile">
         <h4 class="popout-profile__title">Cambiar foto de perfil</h4>
-        <button
-          class="popout-profile__button-close popout__button-close"
-          type="submit"
-        >
+        <button class="popout-profile__button-close" type="submit">
           <img
             src="<%=require('./images/close-icon.svg')%>"
             alt="Boton de cerrar"
-            class="popout__button-close"
+            class="close"
           />
         </button>
         <form class="popout-profile__form form" novalidate>
@@ -193,14 +185,11 @@
       </div>
       <div class="popout-confirm">
         <h4 class="popout-confirm__title">¿Estás seguro?</h4>
-        <button
-          class="popout-confirm__button-close popout__button-close"
-          type="submit"
-        >
+        <button class="popout-confirm__button-close" type="submit">
           <img
             src="<%=require('./images/close-icon.svg')%>"
             alt="Boton de cerrar"
-            class="popout__button-close"
+            class="close"
           />
         </button>
         <button class="popout-confirm__button" type="submit">Si</button>
